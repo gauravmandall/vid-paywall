@@ -10,22 +10,16 @@ export const runtime = "nodejs";
 
 function getAuthConfig(c: Context): AuthConfig {
   return {
-    secret: process.env.SECRET,
+    secret: c.env.SECRET,
     ...authConfig,
   };
 }
 
 const app = new Hono().basePath("/api");
 
+app.use("*", initAuthConfig(getAuthConfig));
 const routes = app.route('/user', userRoutes);
 
-app.get("/hello", (c) => {
-  return c.json({
-    message: "Hello Next.js!",
-  });
-});
-
-app.use("*", initAuthConfig(getAuthConfig));
 
 export const GET = handle(app);
 export const POST = handle(app);
@@ -33,4 +27,4 @@ export const PATCH = handle(app);
 export const DELETE = handle(app);
 
 
-export type AppType = typeof app;
+export type AppType = typeof routes;
