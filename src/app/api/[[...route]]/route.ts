@@ -6,6 +6,7 @@ import authConfig from "@/auth.config";
 // routes
 import userRoutes from "@/app/api/[[...route]]/user";
 import paymentsRoute from "@/app/api/[[...route]]/payments";
+import videoRoutes from "@/app/api/[[...route]]/videos";
 
 export const runtime = "nodejs";
 
@@ -19,7 +20,10 @@ function getAuthConfig(c: Context): AuthConfig {
 const app = new Hono().basePath("/api");
 
 app.use("*", initAuthConfig(getAuthConfig));
-const routes = app.route("/user", userRoutes).route("/payments", paymentsRoute);
+const routes = app
+  .route("/user", userRoutes)
+  .route("/payments", paymentsRoute)
+  .route("/video", videoRoutes);
 
 export const GET = handle(app);
 export const POST = handle(app);
