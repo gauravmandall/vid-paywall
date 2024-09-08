@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useCheckPremium } from "@/lib/hooks/users/use-check-premium";
 import React from "react";
+import Upgrade from "./upgrade";
 
 export const VideoPlayer = () => {
   const { data: isPremium, isPending, isError } = useCheckPremium();
@@ -20,14 +21,7 @@ export const VideoPlayer = () => {
         <p>
           This is a premium video. Please subscribe to watch.
           </p>
-          <Button
-            onClick={() => {
-              alert("Upgrade to premium!");
-            }}
-            className="w-full mt-4"
-          >
-            Subscribe
-          </Button>
+          <Upgrade />
       </div>
     );
   }
